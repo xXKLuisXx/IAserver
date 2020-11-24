@@ -26,7 +26,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         jsonObject = json.loads(body)
         doc = nlp(jsonObject["text"]) # run annotation over a sentence
         words = []
-        responseDicc = {'permited':False,'words':[]}
+        responseDicc = {'permited':True,'words':[]}
         for sent in doc.sentences:
             for word in sent.words:
                 if word.upos == "ADJ":
@@ -35,7 +35,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         df = pd.read_excel('dataset.xlsx')
         for word in words:
             if word in df['Insultos'].values:
-                responseDicc['permited'] = True
+                responseDicc['permited'] = False
         
         responseDicc['words'] = words
 
